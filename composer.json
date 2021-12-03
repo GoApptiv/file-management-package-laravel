@@ -1,0 +1,24 @@
+{
+    "name": "goapptiv/file-management",
+    "description": "This package will be used for storing file on google bucket.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "manish-kapadi",
+            "email": "manish.kapadi@goapptiv.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "GoApptiv\\FileManagement\\": "src/"
+        }
+    },
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GoApptiv\\FileManagement\\Providers\\FileManagementServiceProvider"
+            ]
+        }
+    }
+}
