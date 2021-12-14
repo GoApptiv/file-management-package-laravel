@@ -1,6 +1,6 @@
 <?php
 
-use GoApptiv\FileManagement\Constants\Constants;
+use GoApptiv\FileManagement\Constants;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +20,7 @@ class CreateFileManagementLogs extends Migration
             $table->string('template_code');
             $table->string('file_type');
             $table->string('file_name');
-            $table->string('file_size');
-            $table->string('upload_url')->nullable();
+            $table->bigInteger('file_size_in_bytes');
             $table->string('uuid')->nullable();
             $table->enum("status", Constants::$STATUS)->default(Constants::$REQUESTED);
             $table->longText('errors')->nullable();
