@@ -11,12 +11,10 @@ use GoApptiv\FileManagement\Models\BaseModel;
  * @property string $template_code
  * @property string $file_type
  * @property string $file_name
- * @property int $file_size
- * @property string $upload_url
+ * @property int $file_size_in_bytes
  * @property string $uuid
  * @property string $status
  * @property string $errors
- *
  *
  */
 class FileManagementLog extends BaseModel

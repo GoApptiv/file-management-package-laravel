@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  *
- * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService test()
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService getUploadUrl(string $templateCode, Collection $file)
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService confirmUpload(string $uuid)
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService getReadUrl(string $uuid)
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService getBulkReadUrl(Collection $uuids)
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService archive(string $uuid)
+ *
  */
 class FileManagement extends Facade
 {

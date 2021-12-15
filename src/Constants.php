@@ -1,6 +1,6 @@
 <?php
 
-namespace GoApptiv\FileManagement\Constants;
+namespace GoApptiv\FileManagement;
 
 class Constants
 {
@@ -11,6 +11,12 @@ class Constants
     public static $GENERATED = 'generated';
     public static $CONFIRMED = 'confirmed';
     public static $FAILED = 'failed';
+    public static $DELETED = 'deleted';
+
+    // end points
+    public static $GET_METHOD = 'GET';
+    public static $POST_METHOD = 'POST';
+    public static $PUT_METHOD = 'PUT';
 
     public static $STATUS = [];
 
@@ -22,7 +28,8 @@ class Constants
             self::$REQUESTED,
             self::$GENERATED,
             self::$CONFIRMED,
-            self::$FAILED
+            self::$FAILED,
+            self::$DELETED
         ];
     }
 }
