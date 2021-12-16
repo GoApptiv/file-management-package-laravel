@@ -40,7 +40,7 @@ php aritsan migrate
 
 The Get Upload URL method will request **File Storage Service** for upload URL and hashId required for uploading the file. 
 
-```laravel
+```php
 
 use GoApptiv\FileManagement\Facades\FileManagement;
 use GoApptiv\FileManagement\Models\FileManagement\File;
@@ -65,7 +65,7 @@ FileManagement::getUploadUrl(string $templateCode, File $file);
 
 The Confirm File Upload method will request **File Storage Service** to confirm the file upload to bucket.
 
-```laravel
+```php
 use GoApptiv\FileManagement\Facades\FileManagement;
 
 FileManagement::confirmUpload(string $uuid);
@@ -83,7 +83,7 @@ FileManagement::confirmUpload(string $uuid);
 
 The Read File URL method will request **File Storage Service** for read URL.
 
-```laravel
+```php
 use GoApptiv\FileManagement\Facades\FileManagement;
 
 FileManagement::getReadUrl(string $uuid);
@@ -101,7 +101,7 @@ FileManagement::getReadUrl(string $uuid);
 
 The Read File URL method will request **File Storage Service** for read URL in bulk.
 
-```laravel
+```php
 use GoApptiv\FileManagement\Facades\FileManagement;
 
 FileManagement::getBulkReadUrl(Collection $uuids);
@@ -119,7 +119,7 @@ FileManagement::getBulkReadUrl(Collection $uuids);
 
 The Archive File method will request **File Storage Service** for archive file uploaded in bucket.
 
-```laravel
+```php
 use GoApptiv\FileManagement\Facades\FileManagement;
 
 FileManagement::archive(string $uuid);
