@@ -2,7 +2,6 @@
 
 namespace GoApptiv\FileManagement\Services\FileManagement;
 
-use Exception;
 use GoApptiv\FileManagement\Constants;
 use GoApptiv\FileManagement\Models\FileManagement\File;
 use GoApptiv\FileManagement\Models\FileManagement\FileManagementLogData;
@@ -77,7 +76,7 @@ class FileManagementService
             $this->fileManagementLogRepository->updateStatusAndUuidById($request->id, Constants::$GENERATED, $response["uuid"]);
 
             return $this->success($response);
-        } catch (Exception $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             Log::info("ERROR WHILE GETTING UPLOAD URL FOR REFERENCE NUMBER:" . $referenceNumber . $e->getMessage());
             $errors = $this->getErrors($e);
 
@@ -111,12 +110,12 @@ class FileManagementService
             $this->fileManagementLogRepository->updateStatusByUuid($uuid, Constants::$CONFIRMED);
 
             return $this->success($response);
-        } catch (Exception $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             Log::info("ERROR WHILE CONFIRMING UPLOAD FOR UUID:" . $uuid . $e->getMessage());
             $errors = $this->getErrors($e);
 
             $this->fileManagementLogRepository->updateStatusAndErrorsByUuid($uuid, Constants::$FAILED, $e->getMessage());
-            return $this->error($e->getCode());
+            return $this->error($e->getCode(), $errors);
         }
     }
 
@@ -140,7 +139,7 @@ class FileManagementService
             );
 
             return $this->success($response);
-        } catch (Exception $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             Log::info("ERROR WHILE GETTING READ URL FOR UUID:" . $uuid . $e->getMessage());
             return $this->error($e->getCode());
         }
@@ -166,7 +165,7 @@ class FileManagementService
             );
 
             return $this->success($response);
-        } catch (Exception $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             Log::info("ERROR WHILE GETTING READ URL FOR UUIDS:" . $uuids . $e->getMessage());
             return $this->error($e->getCode());
         }
@@ -197,7 +196,7 @@ class FileManagementService
             $this->fileManagementLogRepository->updateStatusByUuid($uuid, Constants::$DELETED);
 
             return $this->success($response);
-        } catch (Exception $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             Log::info("ERROR WHILE GETTING READ URL FOR UUIDS:" . $uuid . $e->getMessage());
             return $this->error($e->getCode());
         }
@@ -218,11 +217,11 @@ class FileManagementService
     /**
      * Get Errors
      *
-     * @param Exception $e
+     * @param \GuzzleHttp\Exception\RequestException $e
      *
      * @return mixed
      */
-    public function getErrors(Exception $e)
+    public function getErrors(\GuzzleHttp\Exception\RequestException $e)
     {
         if ($e->getCode() == 400) {
             if ($e->hasResponse()) {
