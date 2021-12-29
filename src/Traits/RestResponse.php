@@ -2,7 +2,6 @@
 
 namespace GoApptiv\FileManagement\Traits;
 
-use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResponseConstants;
 
 trait RestResponse
@@ -11,16 +10,17 @@ trait RestResponse
      * Success Response
      *
      * @param $data
-     * @param $code
      *
      * @return $mixed
      */
-    protected function success($data, $code = 200)
+    protected function success($data)
     {
-        return Response::json([
-            'status'=> 'Success',
-            'data' => $data
-        ], $code);
+        return collect(
+            [
+                'status' => true,
+                'data' => $data
+            ]
+        );
     }
 
     /**
@@ -55,9 +55,11 @@ trait RestResponse
      */
     public static function badRequest($errors)
     {
-        return Response::json(
-            ['success' => false, 'errors' => $errors],
-            ResponseConstants::HTTP_BAD_REQUEST
+        return collect(
+            [
+                'status' => false,
+                'errors' => $errors
+            ]
         );
     }
 
@@ -68,12 +70,11 @@ trait RestResponse
      */
     public static function notFound()
     {
-        return Response::json(
+        return collect(
             [
-                'success' => false,
-                'errors' => ['message' => 'Not Found']
-            ],
-            ResponseConstants::HTTP_NOT_FOUND
+                'status' => false,
+                'errors' => ['message' => "Not found"]
+            ]
         );
     }
 
@@ -84,12 +85,11 @@ trait RestResponse
      */
     public static function noPermission()
     {
-        return Response::json(
+        return collect(
             [
-                'success' => false,
-                'errors' => ['message' => 'Permission denied']
-            ],
-            ResponseConstants::HTTP_FORBIDDEN
+                'status' => false,
+                'errors' => ['message' => "Permission denied"]
+            ]
         );
     }
 
@@ -100,12 +100,11 @@ trait RestResponse
      */
     public static function serverError()
     {
-        return Response::json(
+        return collect(
             [
-                'success' => false,
+                'status' => false,
                 'errors' => ['message' => "Request failed"]
-            ],
-            ResponseConstants::HTTP_INTERNAL_SERVER_ERROR
+            ]
         );
     }
 }

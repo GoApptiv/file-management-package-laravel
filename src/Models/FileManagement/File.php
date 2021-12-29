@@ -37,7 +37,7 @@ class File
     /**
      * Get the value of type
      */
-    public function gettype()
+    public function getType()
     {
         return $this->type;
     }
@@ -47,7 +47,7 @@ class File
      *
      * @return  self
      */
-    public function settype($type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -57,7 +57,7 @@ class File
     /**
      * Get the value of name
      */
-    public function getname()
+    public function getName()
     {
         return $this->name;
     }
@@ -67,7 +67,7 @@ class File
      *
      * @return  self
      */
-    public function setname($name)
+    public function setName($name)
     {
         $this->name = $name;
 
