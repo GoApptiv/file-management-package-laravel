@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Log;
 
 class FileManagementService
 {
-    use RestCall,RestResponse;
+    use RestCall;
+    use RestResponse;
 
     /** @var FileManagementLogRepositoryInterface */
     private $fileManagementLogRepository;
-    
+
     /**
      * @param FileManagementLogRepositoryInterface $fileManagementRepository
      */
@@ -234,8 +235,6 @@ class FileManagementService
                     return 'SERVER ERROR';
                 }
             }
-        } else {
-            return $e->getResponse()->getBody()->getContents();
         }
     }
 }
