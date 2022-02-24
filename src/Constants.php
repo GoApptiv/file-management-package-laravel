@@ -13,7 +13,7 @@ class Constants
     public static $FAILED = 'failed';
     public static $DELETED = 'deleted';
 
-    // end points
+    // method types
     public static $GET_METHOD = 'GET';
     public static $POST_METHOD = 'POST';
     public static $PUT_METHOD = 'PUT';

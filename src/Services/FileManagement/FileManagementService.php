@@ -37,7 +37,7 @@ class FileManagementService
      *
      * @return mixed
      */
-    public function getUploadUrl(string $templateCode, File $file)
+    public function getUploadUrl($templateCode, $file)
     {
         Log::info("GENERATING REFERENCE NUMBER...");
         $referenceNumber = Utils::generateReferenceNumber($file->getName());
@@ -93,7 +93,7 @@ class FileManagementService
      *
      * @return mixed
      */
-    public function confirmUpload(string $uuid)
+    public function confirmUpload($uuid)
     {
         try {
             Log::info("CONFIRMING FILE UPLOAD TO FILE MANAGEMENT SERVICE FOR UUID:" . $uuid);
@@ -127,7 +127,7 @@ class FileManagementService
      *
      * @return $mixed
      */
-    public function getReadUrl(string $uuid)
+    public function getReadUrl($uuid)
     {
         try {
             Log::info("REQUESTING READ URL FOR UUID:" . $uuid);
@@ -153,7 +153,7 @@ class FileManagementService
      *
      * @return $mixed
      */
-    public function getBulkReadUrl(Collection $uuids)
+    public function getBulkReadUrl($uuids)
     {
         try {
             Log::info("REQUESTING READ URL FOR UUID:" . $uuids);
@@ -179,7 +179,7 @@ class FileManagementService
      *
      * @return $mixed
      */
-    public function archive(string $uuid)
+    public function archive($uuid)
     {
         try {
             Log::info("ARCHIVING FILE WITH UUID:" . $uuid);
@@ -222,7 +222,7 @@ class FileManagementService
      *
      * @return mixed
      */
-    public function getErrors(\GuzzleHttp\Exception\RequestException $e)
+    public function getErrors($e)
     {
         if ($e->getCode() == 400) {
             if ($e->hasResponse()) {

@@ -19,7 +19,7 @@ class FileManagementLogRepository extends MySqlBaseRepository implements FileMan
      * @param FileManagementLogData $data
      * @return FileManagementLog
      */
-    public function store(FileManagementLogData $data)
+    public function store($data)
     {
         $processedData = collect($this->formFields($data));
 
@@ -42,7 +42,7 @@ class FileManagementLogRepository extends MySqlBaseRepository implements FileMan
      * @param string $uuid
      * @return int
      */
-    public function updateStatusAndUuidById(int $id, string $status, string $uuid)
+    public function updateStatusAndUuidById($id, $status, $uuid)
     {
         return FileManagementLog::where('id', $id)->update([
             "status" => $status,
@@ -57,7 +57,7 @@ class FileManagementLogRepository extends MySqlBaseRepository implements FileMan
      * @param string $status
      * @return int
      */
-    public function updateStatusByUuid(string $uuid, string $status)
+    public function updateStatusByUuid($uuid, $status)
     {
         return FileManagementLog::where('uuid', $uuid)->update([
             "status" => $status
@@ -71,7 +71,7 @@ class FileManagementLogRepository extends MySqlBaseRepository implements FileMan
      * @param string $errors
      * @return int
      */
-    public function updateStatusAndErrorsById(int $id, $status, $errors)
+    public function updateStatusAndErrorsById($id, $status, $errors)
     {
         return FileManagementLog::where('id', $id)->update([
             "status" => $status,
@@ -86,7 +86,7 @@ class FileManagementLogRepository extends MySqlBaseRepository implements FileMan
      * @param string $errors
      * @return int
      */
-    public function updateStatusAndErrorsByUuid(string $uuid, $status, $errors)
+    public function updateStatusAndErrorsByUuid($uuid, $status, $errors)
     {
         return FileManagementLog::where('uuid', $uuid)->update([
             "status" => $status,
@@ -102,7 +102,7 @@ class FileManagementLogRepository extends MySqlBaseRepository implements FileMan
      * @param FileManagementLogData $data
      * @return Collection
      */
-    public function formFields(FileManagementLogData $data)
+    public function formFields($data)
     {
         $fields = collect([]);
 

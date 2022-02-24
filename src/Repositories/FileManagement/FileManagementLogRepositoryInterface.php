@@ -14,7 +14,7 @@ interface FileManagementLogRepositoryInterface extends BaseRepositoryInterface
      * @param FileManagementLogData $data
      * @return FileManagementLog
      */
-    public function store(FileManagementLogData $data);
+    public function store($data);
 
     /**
      * Updates the status and upload URL by id
@@ -23,7 +23,7 @@ interface FileManagementLogRepositoryInterface extends BaseRepositoryInterface
      * @param string $status
      * @return int
      */
-    public function updateStatusAndUuidById(int $id, string $status, string $uuid);
+    public function updateStatusAndUuidById($id, $status, $uuid);
 
     /**
      * Updates the status and errors by id
@@ -33,7 +33,7 @@ interface FileManagementLogRepositoryInterface extends BaseRepositoryInterface
      * @param string $url
      * @return int
      */
-    public function updateStatusAndErrorsById(int $id, string $status, string $errors);
+    public function updateStatusAndErrorsById($id, $status, $errors);
 
 
     /**
@@ -44,7 +44,7 @@ interface FileManagementLogRepositoryInterface extends BaseRepositoryInterface
      * @param string $url
      * @return int
      */
-    public function updateStatusAndErrorsByUuid(string $uuid, string $status, string $errors);
+    public function updateStatusAndErrorsByUuid($uuid, $status, $errors);
 
     /**
      * Updates the status by uuid
@@ -53,5 +53,5 @@ interface FileManagementLogRepositoryInterface extends BaseRepositoryInterface
      * @param string $status
      * @return int
      */
-    public function updateStatusByUuid(string $uuid, string $status);
+    public function updateStatusByUuid($uuid, $status);
 }

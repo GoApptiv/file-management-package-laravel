@@ -13,7 +13,7 @@ class Utils
      *
      * @return string
      */
-    public static function generateReferenceNumber(string $fileName)
+    public static function generateReferenceNumber($fileName)
     {
         return md5(time()) . substr(bin2hex(random_bytes(6)), 0, 6) . base64_encode($fileName);
     }
@@ -25,7 +25,7 @@ class Utils
      * @param array $keys
      * @return bool
      */
-    public static function containsAll(Collection $data, array $keys)
+    public static function containsAll($data, $keys)
     {
         foreach ($keys as $key) {
             if (!$data->has($key)) {
