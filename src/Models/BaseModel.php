@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
+    
+    /**
+     * Connection name
+     *
+     * @var string
+     */
+    protected $connection = 'mysql';
 
     /**
      *
