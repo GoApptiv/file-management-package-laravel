@@ -12,7 +12,7 @@ class BaseModel extends Model
      *
      * @var string
      */
-    protected $connection = 'mysql';
+    protected $connection = 'file_management_mysql';
 
     /**
      *
