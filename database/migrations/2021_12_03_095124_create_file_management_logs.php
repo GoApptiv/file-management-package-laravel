@@ -14,7 +14,7 @@ class CreateFileManagementLogs extends Migration
      */
     public function up()
     {
-        Schema::create('file_management_logs', function (Blueprint $table) {
+        Schema::connection('file_management_mysql')->create('file_management_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('reference_number')->unique();
             $table->string('template_code');
@@ -35,6 +35,6 @@ class CreateFileManagementLogs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_management_logs');
+        Schema::connection('file_management_mysql')->dropIfExists('file_management_logs');
     }
 }
