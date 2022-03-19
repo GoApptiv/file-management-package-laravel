@@ -27,6 +27,44 @@ FILE_MANAGEMENT_URL=
 FILE_MGMT_TOKEN=
 ```
 
+Create A New Schema in your database with name "file_management"
+
+Add the following Database keys in your environment variables. Kindly use your database credentials and create a database name communication in your MySQL.
+
+```env
+FILE_MGMT_DB_HOST=127.0.0.1
+FILE_MGMT_DB_PORT=port
+FILE_MGMT_DB_DATABASE=file_management
+FILE_MGMT_DB_USERNAME=user
+FILE_MGMT_DB_PASSWORD=password
+```
+
+Create a new connection in config/database.php, You can create a new connection by copying the "mysql" format and change the environment variable to FILE_MGMT environment variables
+
+For Example (Connection format might differ in your Laravel version)
+
+```php
+'file_management_mysql' => [
+    'driver' => 'mysql',
+    'url' => env('DATABASE_URL'),
+    'host' => env('FILE_MGMT_DB_HOST', '127.0.0.1'),
+    'port' => env('FILE_MGMT_DB_PORT', '3306'),
+    'database' => env('FILE_MGMT_DB_DATABASE', 'forge'),
+    'username' => env('FILE_MGMT_DB_USERNAME', 'forge'),
+    'password' => env('FILE_MGMT_DB_PASSWORD', ''),
+    'unix_socket' => env('DB_SOCKET', ''),
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'strict' => true,
+    'engine' => null,
+    'options' => extension_loaded('pdo_mysql') ? array_filter([
+    PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+    ]) : [],
+]
+```
+
 Use the following commands to run the migrations in the SQL Database
 
 ```bash
