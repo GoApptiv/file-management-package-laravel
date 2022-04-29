@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService getReadUrl(string $uuid)
  * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService getBulkReadUrl(Collection $uuids)
  * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService archive(string $uuid)
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService createFileVariant(string $uuid, string $variantType)
+ * @method static GoApptiv\FileManagement\Services\FileManagement\FileManagementService getReadUrlForVariants(string $uuid)
  *
  */
 class FileManagement extends Facade
