@@ -5,7 +5,9 @@ namespace GoApptiv\FileManagement\Services\FileManagement;
 use GoApptiv\FileManagement\Constants;
 use GoApptiv\FileManagement\Models\FileManagement\File;
 use GoApptiv\FileManagement\Models\FileManagement\FileManagementLogData;
+use GoApptiv\FileManagement\Models\FileManagement\Dto\FileManagementVariantLogData;
 use GoApptiv\FileManagement\Repositories\FileManagement\FileManagementLogRepositoryInterface;
+use GoApptiv\FileManagement\Repositories\FileManagement\FileManagementVariantLogRepositoryInterface;
 use GoApptiv\FileManagement\Services\Endpoints;
 use GoApptiv\FileManagement\Services\Utils;
 use GoApptiv\FileManagement\Traits\RestCall;
@@ -21,12 +23,20 @@ class FileManagementService
     /** @var FileManagementLogRepositoryInterface */
     private $fileManagementLogRepository;
 
+    /** @var FileManagementVariantLogRepositoryInterface */
+    private $fileManagementVariantLogRepository;
+
+
     /**
      * @param FileManagementLogRepositoryInterface $fileManagementRepository
+     * @param FileManagementVariantLogRepositoryInterface $fileManagementVariantLogRepository
      */
-    public function __construct(FileManagementLogRepositoryInterface $fileManagementLogRepository)
-    {
+    public function __construct(
+        FileManagementLogRepositoryInterface $fileManagementLogRepository,
+        FileManagementVariantLogRepositoryInterface $fileManagementVariantLogRepository
+    ) {
         $this->fileManagementLogRepository = $fileManagementLogRepository;
+        $this->fileManagementVariantLogRepository = $fileManagementVariantLogRepository;
     }
 
     /**
@@ -236,5 +246,118 @@ class FileManagementService
                 }
             }
         }
+    }
+
+    /**
+     * Create File variant
+     *
+     * @param string $uuid
+     * @param string $pluginCode
+     *
+     * @return bool
+     *
+     */
+    public function createFileVariant($uuid, $pluginCode)
+    {
+        try {
+            Log::info("CREATING FILE VARIANTS:");
+
+            Log::info("Saving variant details in database...");
+            $data = new FileManagementVariantLogData($uuid);
+            $data->setVariantType($pluginCode);
+            $this->fileManagementVariantLogRepository->store($data);
+
+            $response = $this->makeRequest(
+                Constants::$POST_METHOD,
+                collect([
+                    "uuid" => $uuid,
+                    "plugins" => [collect([
+                        "code" => $pluginCode
+                    ])]
+                ]),
+                env("FILE_MANAGEMENT_URL").Endpoints::$FILE_VARIANTS,
+                $this->getFileMangementHeader(),
+                []
+            );
+    
+            $variantId = $response['data']['plugin'][0]['variantId'];
+            Log::info("Updating response status for uuid...");
+            $this->updateVariantIdByUuid($uuid, $variantId);
+            
+            Log::info("FILE VARIANT CREATED SUCCESSFULLY FOR UUID: ". $uuid);
+            
+            return $this->success($response);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            Log::info("ERROR WHILE CREATING FILE VARIANT:" . $uuid . $e->getMessage());
+            $this->updateStatusAndErrorsByUuid($uuid, Constants::$FAILED, $e->getMessage());
+            return $this->error($e->getCode());
+        }
+    }
+
+    /**
+     * Update Variant Id and status by UUID
+     *
+     * @param string $uuid
+     * @param string $status
+     *
+     * @return int
+     *
+     */
+    public function updateVariantIdByUuid($uuid, $variantId)
+    {
+        return $this->fileManagementVariantLogRepository->updateVariantIdByUuid($uuid, $variantId);
+    }
+
+    /**
+    * Updates the status and errors by uuid
+    *
+    * @param string $uuid
+    * @param string $errors
+    *
+    * @return int
+    */
+    public function updateStatusAndErrorsByUuid($uuid, $status, $errors)
+    {
+        return $this->fileManagementVariantLogRepository->updateStatusAndErrorsByUuid($uuid, $status, $errors);
+    }
+
+    /**
+     * Get URL for File variant
+     *
+     * @param string $uuid
+     *
+     * @return string $url
+     */
+    public function getReadUrlForVariants($uuid)
+    {
+        try {
+            Log::info("FETCHING URL FOR VARIANT ID:" . $uuid);
+            $response = $this->makeRequest(
+                Constants::$GET_METHOD,
+                collect([
+                    "uuid" => $uuid
+                ]),
+                env("FILE_MANAGEMENT_URL") . Endpoints::$GET_FILE_VARIANT_URL.$uuid,
+                $this->getFileMangementHeader(),
+                []
+            );
+            return $this->success($response);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            Log::info("ERROR WHILE FETCHING URL FOR VARIANT ID:" . $uuid . $e->getMessage());
+            return $this->error($e->getCode());
+        }
+    }
+
+    /**
+     * Updates the status by uuid
+     *
+     * @param string $uuid
+     * @param string $status
+     *
+     * @return int
+     */
+    public function updateStatusByUuid($uuid, $status)
+    {
+        return $this->fileManagementVariantLogRepository->updateStatusByUuid($uuid, $status);
     }
 }
