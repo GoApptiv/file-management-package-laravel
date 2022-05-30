@@ -18,7 +18,8 @@
         "laravel": {
             "providers": [
                 "GoApptiv\\FileManagement\\Providers\\FileManagementServiceProvider",
-                "GoApptiv\\FileManagement\\Providers\\RepositoryServiceProvider"
+                "GoApptiv\\FileManagement\\Providers\\RepositoryServiceProvider",
+                "GoApptiv\\FileManagement\\Controller\\FileVariantController"
             ]
         }
     }
