@@ -17,7 +17,7 @@ class FileManagementServiceProvider extends ServiceProvider
             __DIR__ . '/../../database/migrations/' => database_path('migrations'),
         ], 'file-management-migrations');
 
-        $this->loadRoutesFrom(__DIR__.'/../route/api_v1.php');
+        $this->loadRoutesFrom(__DIR__.'/../Route/api_v1.php');
 
         if ($this->app->runningInConsole()) {
             $this->commands([]);
