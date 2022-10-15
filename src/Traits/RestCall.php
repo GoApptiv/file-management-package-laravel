@@ -28,7 +28,7 @@ trait RestCall
     ) {
         $request = $this->buildRequest($method, $data, $endPoint, $headers, $queryParams);
 
-        $client = new Client([]);
+        $client = $this->getClient();
         $response = $client->request($request->getMethod(), $request->getEndPoint(), [
             'headers' => $request->getHeaders(),
             'query' => $request->getQueryParams(),
@@ -64,5 +64,18 @@ trait RestCall
         $request->setQueryParams($queryParams);
         
         return $request;
+    }
+
+    /**
+     * Build Client
+     */
+    private function getClient()
+    {
+        $client = new Client([
+            'timeout' => 5, // Response timeout
+            'connect_timeout' => 5, // Connection timeout
+        ]);
+
+        return $client;
     }
 }
