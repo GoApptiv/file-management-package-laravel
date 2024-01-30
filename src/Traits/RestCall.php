@@ -29,11 +29,16 @@ trait RestCall
         $request = $this->buildRequest($method, $data, $endPoint, $headers, $queryParams);
 
         $client = $this->getClient();
-        $response = $client->request($request->getMethod(), $request->getEndPoint(), [
+        $options = [
             'headers' => $request->getHeaders(),
             'query' => $request->getQueryParams(),
-            'json' => $request->getPayload(),
-        ]);
+        ];
+
+        if (!empty($request->getPayload())) {
+            $options['json'] = $request->getPayload();
+        }
+
+        $response = $client->request($request->getMethod(), $request->getEndPoint(), $options);
         $response = json_decode($response->getBody(), true);
         return $response;
     }
@@ -62,7 +67,7 @@ trait RestCall
         $request->setPayload($data);
         $request->setHeaders($headers);
         $request->setQueryParams($queryParams);
-        
+
         return $request;
     }
 
