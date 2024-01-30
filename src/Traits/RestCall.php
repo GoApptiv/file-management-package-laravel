@@ -4,7 +4,6 @@ namespace GoApptiv\FileManagement\Traits;
 
 use GuzzleHttp\Client;
 use GoApptiv\FileManagement\Models\Request;
-use Illuminate\Support\Collection;
 
 trait RestCall
 {
@@ -12,7 +11,7 @@ trait RestCall
      * Send a request to any external service
      *
      * @param string $method
-     * @param Collection $data
+     * @param array $data
      * @param string $endpoint
      * @param array $headers
      * @param array $queryParams
@@ -21,7 +20,7 @@ trait RestCall
      */
     public function makeRequest(
         string $method,
-        Collection $data,
+        array $data,
         string $endPoint,
         array $headers,
         array $queryParams
@@ -48,7 +47,7 @@ trait RestCall
      *
      * @param string $method
      * @param string $endPoint
-     * @param Collection $data
+     * @param array $data
      * @param array $headers
      * @param array $queryParams
      *
@@ -56,7 +55,7 @@ trait RestCall
      */
     public function buildRequest(
         string $method,
-        Collection $data,
+        array $data,
         string $endPoint,
         array $headers,
         array $queryParams

@@ -77,7 +77,7 @@ class FileManagementService
             Log::info("Requesting upload url from File Management Service for reference number:" . $referenceNumber);
             $response = $this->makeRequest(
                 Constants::$POST_METHOD,
-                $data,
+                $data->toArray(),
                 env("FILE_MANAGEMENT_URL").Endpoints::$GET_FILE_UPLOAD_URL,
                 $this->getFileMangementHeader(),
                 []
@@ -109,9 +109,9 @@ class FileManagementService
             Log::info("CONFIRMING FILE UPLOAD TO FILE MANAGEMENT SERVICE FOR UUID:" . $uuid);
             $response = $this->makeRequest(
                 Constants::$PUT_METHOD,
-                collect([
+                [
                     "uuid" => $uuid
-                ]),
+                ],
                 env("FILE_MANAGEMENT_URL").Endpoints::$CONFIRM_FILE_UPLOAD,
                 $this->getFileMangementHeader(),
                 []
@@ -143,7 +143,7 @@ class FileManagementService
             Log::info("REQUESTING READ URL FOR UUID:" . $uuid);
             $response = $this->makeRequest(
                 Constants::$GET_METHOD,
-                collect([]),
+                [],
                 env("FILE_MANAGEMENT_URL") . Endpoints::$GET_FILE_READ_URL . $uuid,
                 $this->getFileMangementHeader(),
                 []
@@ -169,7 +169,7 @@ class FileManagementService
             Log::info("REQUESTING READ URL FOR UUID:" . $uuids);
             $response = $this->makeRequest(
                 Constants::$POST_METHOD,
-                $uuids,
+                $uuids->toArray(),
                 env("FILE_MANAGEMENT_URL") . Endpoints::$GET_BULK_FILE_READ_URL,
                 $this->getFileMangementHeader(),
                 []
@@ -195,9 +195,9 @@ class FileManagementService
             Log::info("ARCHIVING FILE WITH UUID:" . $uuid);
             $response = $this->makeRequest(
                 Constants::$PUT_METHOD,
-                collect([
+                [
                     "uuid" => $uuid
-                ]),
+                ],
                 env("FILE_MANAGEMENT_URL") . Endpoints::$ARCHIVE_FILES,
                 $this->getFileMangementHeader(),
                 []
@@ -269,12 +269,12 @@ class FileManagementService
 
             $response = $this->makeRequest(
                 Constants::$POST_METHOD,
-                collect([
+                [
                     "uuid" => $uuid,
                     "plugins" => [collect([
                         "code" => $pluginCode
                     ])]
-                ]),
+                ],
                 env("FILE_MANAGEMENT_URL").Endpoints::$FILE_VARIANTS,
                 $this->getFileMangementHeader(),
                 []
@@ -334,9 +334,9 @@ class FileManagementService
             Log::info("FETCHING URL FOR VARIANT ID:" . $uuid);
             $response = $this->makeRequest(
                 Constants::$GET_METHOD,
-                collect([
+                [
                     "uuid" => $uuid
-                ]),
+                ],
                 env("FILE_MANAGEMENT_URL") . Endpoints::$GET_FILE_VARIANT_URL.$uuid,
                 $this->getFileMangementHeader(),
                 []
